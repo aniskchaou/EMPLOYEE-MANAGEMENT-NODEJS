@@ -9,6 +9,7 @@ const client = new Client({
 });
 
 client.connect();
+
 const queryCreateDb = `
 CREATE TABLE employees (
     email varchar,
@@ -17,8 +18,7 @@ CREATE TABLE employees (
     city varchar
 );
 `;
-queryInsertDb=`INSERT INTO employees (email, firstname,mobile,city)
-VALUES ('jerry@example.com','Jerry','0768759898','Lyon'), ( 'george@example.com','George','06987097','Paris');`;
+
 client
     .query(queryCreateDb)
     .then(res => {
@@ -28,8 +28,16 @@ client
         console.error(err);
     })
     .finally(() => {
-       // client.end();
-       client.query(queryInsertDb).catch(err => {
-        console.error(err);
+        initDb()
+      
     });
-    });
+
+function initDb()
+{
+    queryInsertDb=`INSERT INTO employees (email, firstname,mobile,city)
+    VALUES ('jerry@example.com','Jerry','0768759898','Lyon'),('george@example.com','George','0665876','Paris');`;
+        client.query(queryInsertDb).catch(err => {
+            console.error(err);
+        });
+}    
+module.exports=client;    
