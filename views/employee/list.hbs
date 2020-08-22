@@ -1,0 +1,26 @@
+
+<h3><a href="/add" class="btn btn-secondary"><i class="fa fa-plus"></i>Create</a>  {{viewTitle}}</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Name</th>
+      <th scope="col">Mobile</th>
+      <th scope="col">City</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each model}}
+    <tr>
+      <td>{{this.email}}</td>
+      <td>{{this.firstname}}</td>
+      <td>{{this.mobile}}</td>
+      <td>{{this.city}}</td>
+      <td><a><i class="fa fa-pencil fa-lg"></i></a>
+      <a><i class="fa fa-trash fa-lg"></i></a>
+      </td>
+    </tr>
+     {{/each}}
+  </tbody>
+</table>

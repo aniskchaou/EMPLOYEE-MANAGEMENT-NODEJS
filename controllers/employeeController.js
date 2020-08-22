@@ -4,19 +4,26 @@ var client=require('../db/db.js')
 
 
 router.get('/',(req,res)=>{
+    res.redirect('/add')
+})
+
+router.get('/add',(req,res)=>{
     res.render("employee/addOrEdit",{
         viewTitle:'Add Employee'
     });
-})
-
-router.post('/',(req,res)=>{
+})    
+router.post('/add',(req,res)=>{
     addEmployee(req,res);
 
 })
 
 router.get('/list',(req,res)=>{
-    res.render("employee/addOrEdit",{
-        viewTitle:'Add Employee'
+    const sql = "SELECT * FROM employees"
+    client.query(sql, [], (err, result) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      res.render("employee/list", { model: result.rows,viewTitle:'Employees List' });
     });
 })
 
@@ -31,7 +38,7 @@ function addEmployee(req,res)
     client.query(queryInsertDb).catch(err => {
         console.error(err);
     }).finally(() => {
-        res.redirect("/");
+        res.redirect("/list");
       
     });;
 }
