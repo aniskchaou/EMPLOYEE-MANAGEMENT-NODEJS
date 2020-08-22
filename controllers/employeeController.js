@@ -4,19 +4,22 @@ var client=require('../db/db.js')
 
 
 router.get('/',(req,res)=>{
-    res.redirect('/add')
+    res.redirect('/list')
 })
 
+// /add
 router.get('/add',(req,res)=>{
     res.render("employee/add",{
         viewTitle:'Add Employee'
     });
 })    
+
 router.post('/add',(req,res)=>{
     addEmployee(req,res);
 
 })
 
+// /edit
 router.get("/edit/:id", (req, res) => {
     const id = req.params.id;
     const sql = "SELECT * FROM employees WHERE id = $1 ";
@@ -26,9 +29,7 @@ router.get("/edit/:id", (req, res) => {
         if (err) {
             return console.error(err.message);
           }
-
-
-      res.render("employee/edit", { model: result.rows[0] });
+      res.render("employee/edit", { viewTitle:'Edit Employee',model: result.rows[0] });
      
     });
   });
@@ -39,12 +40,12 @@ router.get("/edit/:id", (req, res) => {
     const sql = "UPDATE employees SET email = $1, city = $2, mobile = $3 ,firstname= $4  WHERE (id = $5)";
     console.log(sql)
     client.query(sql, employeees, (err, result) => {
-      // if (err) ...
+
       res.redirect("/list");
     });
   });
 
-
+// /list
 router.get('/list',(req,res)=>{
     const sql = "SELECT * FROM employees"
     client.query(sql, [], (err, result) => {
@@ -55,16 +56,16 @@ router.get('/list',(req,res)=>{
     });
 })
 
-/*
-app.get("/delete/:id", (req, res) => {
+
+// /delete
+router.get("/delete/:id", (req, res) => {
     const id = req.params.id;
-    const sql = "SELECT * FROM Books WHERE Book_ID = $1";
-    pool.query(sql, [id], (err, result) => {
-      // if (err) ...
-      res.render("delete", { model: result.rows[0] });
+    const sql = "DELETE FROM employees WHERE id = $1";
+    client.query(sql, [id], (err, result) => {
+      res.redirect("/list");
     });
   });
-*/
+
 
 function addEmployee(req,res)
 {

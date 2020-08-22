@@ -1,8 +1,9 @@
 
-<h3><a href="/add" class="btn btn-secondary"><i class="fa fa-plus"></i>Create</a>  {{viewTitle}}</h3>
+<h3><a href="/add" class="btn btn-info"><i class="fa fa-plus"></i>  Create</a>  {{viewTitle}}</h3>
 <table class="table table-striped">
   <thead>
     <tr>
+       <th scope="col">#</th>
       <th scope="col">Email</th>
       <th scope="col">Name</th>
       <th scope="col">Mobile</th>
@@ -13,12 +14,13 @@
   <tbody>
       {{#each model}}
     <tr>
+      <td>{{this.id}}</td>
       <td>{{this.email}}</td>
       <td>{{this.firstname}}</td>
       <td>{{this.mobile}}</td>
       <td>{{this.city}}</td>
-      <td><a href="/edit/{{this.id}}"><i class="fa fa-pencil fa-lg"></i></a>
-      <a><i class="fa fa-trash fa-lg"></i></a>
+      <td><a class="btn btn-warning" href="/edit/{{this.id}}"><i class="fa fa-pencil fa-lg"></i></a>
+      <a class="btn btn-danger" href="/delete/{{this.id}}" onclick="return confirm('Are you to delete this record ?');" ><i class="fa fa-trash fa-lg"></i></a>
       </td>
     </tr>
      {{/each}}
