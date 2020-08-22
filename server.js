@@ -10,7 +10,7 @@ var app=express()
 app.set('views',path.join(__dirname,'/views/'));
 app.engine('hbs',exphbs({extname:'hbs',defaultLayout:'mainLayout',layoutsDir:__dirname+'/views/layout/'}))
 app.set('view engine','hbs')
-app.listen(config.port,()=>{
+app.listen(process.env.PORT || 5000,()=>{
     console.log("Express server is started at port : "+config.port);
 })
 app.use(bodyParser.urlencoded({
