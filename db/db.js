@@ -12,6 +12,7 @@ client.connect();
 
 const queryCreateDb = `
 CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
     email varchar,
     firstname varchar,
     mobile varchar,
